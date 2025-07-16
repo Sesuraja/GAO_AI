@@ -1,0 +1,6 @@
+{
+  "name": "GAO AI Chatbot",
+  "description": "An intelligent chatbot that provides product information from GAOTek.com and GAORFID.com, and answers general questions. It maintains conversation history and provides clickable, valid links to products and categories.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
