@@ -13,7 +13,6 @@ const Header: React.FC<HeaderProps> = ({ onNewChat }) => {
           <div className="bg-blue-500 text-white font-bold rounded-md px-3 py-1 text-xl">
             GAO
           </div>
-          <h1 className="text-xl font-bold text-white ml-3">GAO AI</h1>
         </div>
         <button
           onClick={onNewChat}
