@@ -1194,7 +1194,10 @@ GAO's TekSummits are a series of free webinars and events that bring together le
 *   **GAOTek TekSummit**: [https://gaotek.com/teksummit/](https://gaotek.com/teksummit/)
 *   **GAORFID TekSummit**: [https://gaorfid.com/teksummit/](https://gaorfid.com/teksummit/)
 *   **GAO Research TekSummit**: [https://www.gaoresearch.com/teksummit/](https://www.gaoresearch.com/teksummit/)
-
+*   **Teksummit Proposal**: [ Email: Speakers-TekSummit@TheGAOGroup.com]
+*   **Partnership**: [ Email: Partnership.Corporate@TheGAOGroup.com}
+If you're interested in partnership, feel free to contact  Partnership.Corporate@TheGAOGroup.com
+To apply, please send the following to Speakers-TekSummit@TheGAOGroup.com
 ---
 **OPERATING INSTRUCTIONS**
 
