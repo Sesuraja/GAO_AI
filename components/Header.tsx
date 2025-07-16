@@ -11,7 +11,7 @@ const Header: React.FC<HeaderProps> = ({ onNewChat }) => {
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center">
           <div className="bg-blue-500 text-white font-bold rounded-md px-3 py-1 text-xl">
-            GAO
+            GAO AI
           </div>
         </div>
         <button
