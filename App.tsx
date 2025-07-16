@@ -8,24 +8,33 @@ import { initChat } from './services/geminiService.ts';
 import type { Chat } from '@google/genai';
 
 const App: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      content: "Hello! I'm GAO AI. How can I assist you today?",
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [chat, setChat] = useState<Chat | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const initializeNewChat = useCallback(() => {
+    setIsLoading(true);
     const chatInstance = initChat();
     if (chatInstance) {
       setChat(chatInstance);
+      setMessages([
+        {
+          role: 'assistant',
+          content: "Hello! I'm GAO AI.  How can I assist you today?",
+        },
+      ]);
+      setError(null);
     } else {
       setError("Could not initialize the AI chat service. Please check your API key and refresh the page.");
     }
+    setIsLoading(false);
   }, []);
+
+
+  useEffect(() => {
+    initializeNewChat();
+  }, [initializeNewChat]);
 
   const handleSend = useCallback(async (prompt: string) => {
     if (!chat || isLoading) return;
@@ -60,7 +69,9 @@ const App: React.FC = () => {
         const errorMessage = "Sorry, I encountered an error. Please try again.";
         setMessages(prevMessages => {
             const newMessages = [...prevMessages];
-            newMessages[newMessages.length - 1].content = errorMessage;
+            if (newMessages.length > 0 && newMessages[newMessages.length - 1].role === 'assistant') {
+              newMessages[newMessages.length - 1].content = errorMessage;
+            }
             return newMessages;
         });
     } finally {
@@ -72,7 +83,7 @@ const App: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-white">
-      <Header />
+      <Header onNewChat={initializeNewChat} />
       {error && (
         <div className="bg-red-500 text-white p-4 text-center">{error}</div>
       )}
