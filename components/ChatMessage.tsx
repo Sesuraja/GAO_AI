@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { Message } from '../types.ts';
 
 interface ChatMessageProps {
@@ -65,6 +66,7 @@ const parseResponse = (text: string): React.ReactNode => {
 };
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
+  const [isCopied, setIsCopied] = useState(false);
   const isUser = message.role === 'user';
   const bubbleClasses = isUser
     ? 'bg-blue-600 text-white self-end'
@@ -82,15 +84,47 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
     </div>
   );
 
+  const handleCopy = () => {
+    if (isCopied || !message.content) return;
+    navigator.clipboard.writeText(message.content)
+      .then(() => {
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000);
+      })
+      .catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
+  };
+
   return (
     <div className={`flex items-start gap-3 my-4 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
       {isUser ? <UserIcon /> : <AiIcon />}
       <div
-        className={`max-w-xl lg:max-w-3xl rounded-lg px-4 py-3 shadow-lg ${bubbleClasses}`}
+        className={`relative group max-w-xl lg:max-w-3xl rounded-lg px-4 py-3 shadow-lg ${bubbleClasses}`}
       >
         <div className="prose prose-invert prose-sm max-w-none break-words">
             {parseResponse(message.content)}
         </div>
+        {!isUser && message.content && (
+          <div className="absolute bottom-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button
+              onClick={handleCopy}
+              className="p-1 rounded-md text-gray-400 hover:bg-gray-600 hover:text-gray-200 disabled:cursor-not-allowed"
+              aria-label={isCopied ? "Copied" : "Copy message"}
+              disabled={isCopied}
+            >
+              {isCopied ? (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              )}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
