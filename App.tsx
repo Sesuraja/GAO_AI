@@ -11,7 +11,7 @@ const App: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hello! I'm GAO AI. I'm an expert on GAOTek and GAORFID products, but you can also ask me for detailed explanations on any topic. Whether it's about technology, science, or history, I'm here to help. How can I assist you today?",
+      content: "Hello! I'm GAO AI. How can I assist you today?",
     },
   ]);
   const [isLoading, setIsLoading] = useState(false);
